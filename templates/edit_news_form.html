@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit - {{ single_object.article }}
+{% endblock title %}
+
+{% block content %}
+    <h1>
+        <div class="edit-news-button">Edit news</div>
+    </h1>
+    <h5>Author: {{ single_object.author }}</h5>
+    <h1>{{ single_object.article }}</h1>
+
+    {% include 'news/detail_snippet.html' with single_object=single_object %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="{{ button_value }}">
+    </form>
+{% endblock content %}
+

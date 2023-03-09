@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% load static %}
+
+    {% block title %}
+        {{ block.super }} - {{ single_object.article }}
+    {% endblock %}
+
+    {% block content %}
+        <h5 class="post-author">Author: {{ single_object.author }}</h5>
+        {% if perms.user.is_staff %}
+            <a href="/news/edit/{{ single_object.pk }}">Change</a>
+            <a href="/news/delete/{{ single_object.pk }}">Delete</a>
+            <a href="/news/commentary/{{ single_object.pk }}">Comment</a>
+        {% endif %}
+        <h1 class="post-article">{{ single_object.article }}</h1>
+
+        {% if single_object.image %}
+        <img src="{% static single_object.image.url %}" alt="{{single_object.artcle }}" height="400">
+        {% endif %}
+            
+        
+        {% include 'news/detail_snippet.html' with single_object=single_object %}
+
+        <h5>Likes: {{ single_object.get_likes }}</h5>
+        <form action="/news/like/{{ single_object.pk }}/" method="post">
+            {% csrf_token %}
+            {% if not liked %}
+                <input type="submit" value="Like">
+            {% else %}
+                <input type="submit" value="Dislike">
+            {% endif %}
+        </form>   
+
+        <h3>Commentaries</h3>
+        {% for c in single_object.commentary.all %}
+            <p>
+                <img src="{{ c.user.userinformation.profile_image.url }}" alt="{{ c.user }}"width="25">
+                {{ c.date.time }}
+                {{ c.user }}
+                {{ c.text }}
+                {% if user == c.user %}
+                    <a href="/news/commentary/edit/{{ c.id }}/">change</a>
+                    <a href="/news/commentary/delete/{{ c.id }}">delete</a>
+                {% endif %}     
+            </p>    
+        {% endfor %}
+        
+    {% endblock %}
+</body>
+</html>

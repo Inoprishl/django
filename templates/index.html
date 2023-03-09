@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    
+    {% block title %} 
+        My awesome app 
+    {% endblock %}
+
+    {% block content %}
+    
+    <div class="title-container">
+        <div class="main-title">AnotherNewsSite</div>
+    </div>
+    <div class="description">
+        <h2 class="description-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores aliquam, ab quod veritatis expedita sequi praesentium obcaecati consectetur amet, omnis totam alias dolorum corporis officiis ducimus tenetur neque repellat numquam.</h2>
+    </div>
+    <div class="title">Last posts:</div>
+    <div class="content">
+        <div class="news-container">
+            {% for news in news_list %}
+                {% if news.image_thumbnail %}
+                    <img src="{{ news.image_thumbnail.url }}" alt="{{ news.article }}thumbnail">
+                {% endif %}    
+                <h1 class="news-article">
+                    <a class="news-link" href="news/{{ news.id }}">{{ news.article }}</a>
+                </h1>   
+            {% endfor %}
+        </div> 
+    </div>
+    <div class="form-container">
+        <div class="form">
+            <h1>
+                <a class="form-link" href="news/create">Create Your post</a>
+            </h1>  
+        </div> 
+    </div>
+    {% endblock %}
+</body>
+</html>

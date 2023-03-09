@@ -1,0 +1,6 @@
+{% comment %} check for single object body's text {% endcomment %}
+{% if single_object.body %}
+    <p class="post-content">{{ single_object.body }}</p>
+{% else %}
+    <p class="post-content">Content coming soon</p>
+{% endif %}

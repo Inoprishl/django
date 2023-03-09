@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Comment - {{ single_object.article }}
+{% endblock title %}
+
+{% block content %}
+  
+    <p>
+        {{ single_object.body }}
+    </p>
+    
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Send">
+    </form>
+{% endblock content %}

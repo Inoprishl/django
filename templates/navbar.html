@@ -1,0 +1,16 @@
+<nav>
+    <a class="homepage" href="/">Homepage</a>
+
+    <div class="nav-menu">
+        {% if user.is_authenticated %}
+            {% if user.userinformation.profile_image %}
+                <img src="{{ user.userinformation.profile_image.url }}" alt="{{ user }}"width="25">
+            {% endif %}
+            <span class="autorisation">Username: <a class="autorisation" href="/profile/{{ user.id }}">{{ user }}</a></span>
+            <a class="autorisation" href="/logout">Log out</a>
+        {% else %}
+            <a class="autorisation" href="/register">Sign up</a>
+            <a class="autorisation" href="/login">Log in</a>
+        {% endif %}
+    </div>
+</nav>
